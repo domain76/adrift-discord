@@ -167,7 +167,7 @@ async def convert_member_to_id(member):
     return member
 
 
-async def rolesonjoin(guild, member):
+async def roles_on_join(guild, member):
     roles = await db_guild_get(guild.id, 'rolesonjoin')
     print(roles)
     for i in roles:
@@ -185,9 +185,9 @@ async def remove_msg(message, delay):
     return
 
 
-async def parseID(escapedID):
+async def parseid(escapedid):
     escapechars = {64: 160, 60: 160, 62: 160, 35: 160, 38: 160, 33: 160}
-    id = escapedID.translate(escapechars).strip()
+    id = escapedid.translate(escapechars).strip()
     return int(id)
 
 
@@ -252,6 +252,18 @@ async def update_user(member):
     if await db_member_get(member) is None:
         member = await convert_member_to_id(member)
         createmember = await client.pg.execute('INSERT INTO members (member_id) VALUES ($1)', member)
+
+
+async def gainxp(member):
+    pass
+
+
+async def nextlevel():
+    pass
+
+
+async def gainlevel():
+    pass
 
 
 async def automated_drops():
@@ -450,7 +462,7 @@ async def withdraw(ctx, amount: int):
                                                f'credit balance is {cash_new}')
 
 
-@client.command(brief='Pay anothher member x credits.')
+@client.command(brief='Pay another member x credits.')
 async def pay(ctx, member: discord.User, amount: int):
     user = ctx.message.author
     member = member
@@ -522,7 +534,7 @@ async def balance(ctx):
         if len(arg) == 1:
             user = ctx.author.id
         if len(arg) > 1:
-            user = await parseID(arg[1])
+            user = await parseid(arg[1])
 
         if user:
             if isinstance(user, int):
@@ -593,11 +605,11 @@ async def setstarboard(ctx, channel: discord.TextChannel):
 
 @client.command(brief='Sets the auto-prune channels.', hidden=True)
 @commands.has_permissions()
-async def addPruneChannel(ctx):
+async def addprunechannel(ctx):
     if await has_permissions(ctx.message.author, "administrator", ctx):
         with open('guilds.json') as json_file:
-            existingData = json.load(json_file)
-        data = existingData
+            existing_data = json.load(json_file)
+        data = existing_data
 
         if str(ctx.guild.id) not in data:
             data[str(ctx.guild.id)] = []
@@ -614,8 +626,8 @@ async def addPruneChannel(ctx):
             json.dump(data, write_file)
 
         with open('delays.json') as json_file:
-            existingData = json.load(json_file)
-        data = existingData
+            existing_data = json.load(json_file)
+        data = existing_data
 
         if str(ctx.guild.id) not in data:
             data[str(ctx.guild.id)] = 300
@@ -634,7 +646,7 @@ async def profile(ctx):
         if len(arg) == 1:
             user = ctx.author.id
         if len(arg) > 1:
-            user = await parseID(arg[1])
+            user = await parseid(arg[1])
 
         if user:
             if isinstance(user, int):
@@ -647,9 +659,9 @@ async def profile(ctx):
 
         user_name = await client.fetch_user(user)
 
-        profileemb = discord.Embed(colour=0xFFFFFF, title=f"{user_name.name}'s Adrift Profile.")
+        profile_emb = discord.Embed(colour=0xFFFFFF, title=f"{user_name.name}'s Adrift Profile.")
         try:
-            embed = await generate_profile_embed(user, profileemb, ctx)
+            embed = await generate_profile_embed(user, profile_emb, ctx)
             if embed:
                 await ctx.message.reply(embed=embed)
             else:
@@ -672,7 +684,7 @@ async def on_member_join(member):
     try:
         await update_user(member)
         await post_log(member.guild, 'JOIN', member, member, 'has joined the server!')
-        await rolesonjoin(member.guild, member)
+        await roles_on_join(member.guild, member)
     except Exception as e:
         print("Error on join ", e)
 
@@ -680,8 +692,8 @@ async def on_member_join(member):
 @client.event
 async def on_message(message):
     with open('guilds.json') as json_file:
-        existingData = json.load(json_file)
-    data = existingData
+        existing_data = json.load(json_file)
+    data = existing_data
 
     if str(message.guild.id) not in data:
         return
@@ -694,8 +706,8 @@ async def on_message(message):
 
     if message.channel.id in data[str(message.guild.id)]:
         with open('delays.json') as json_file:
-            existingData = json.load(json_file)
-        t_data = existingData
+            existing_data = json.load(json_file)
+        t_data = existing_data
         d = t_data[str(message.guild.id)]
         if message.attachments:
             await message.add_reaction("<:heart_pansexual:905559517528485959>")
