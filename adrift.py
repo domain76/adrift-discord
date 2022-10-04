@@ -542,14 +542,14 @@ async def balance(ctx):
         print(e)
 
 
-@client.command(brief='Create a dynamic with another user.', hidden=True)
+@client.command(brief='Create a dynamic with another user.')
 async def dynamic(ctx, member: discord.User):
-    pass
+    await ctx.reply("This command is still being developed Try again later!")
 
 
-@client.command(brief='End your dynamic with a partner.', hidden=True)
+@client.command(brief='End your dynamic with a partner.')
 async def enddynamic(ctx, member: discord.User):
-    pass
+    await ctx.reply("This command is still being developed. Try again later!")
 
 
 ######
