@@ -295,10 +295,7 @@ async def automated_water_reminder():
     while True:
         await asyncio.sleep(60 * 120)
 
-        reminder = "<a:attention:1026222478613282836><a:attention:1026222478613282836>" \
-                   "<a:attention:1026222478613282836> This is your friendly reminder to make sure you drink water! " \
-                   "<a:attention:1026222478613282836><a:attention:1026222478613282836><a:attention:1026222478613282836>"
-        water_reminder_message = await client.get_channel(random.choice(DROP_LOCATIONS)).send(reminder)
+        water_reminder_message = await client.get_channel(random.choice(DROP_LOCATIONS)).send(random.choice(WATER_PHRASES))
 
 ###################################################################
 ##                      DISCORD BOT COMMANDS                     ##
@@ -564,6 +561,11 @@ async def enddynamic(ctx, member: discord.User):
     await ctx.reply("This command is still being developed. Try again later!")
 
 
+@client.command(brief='Set your birthday.')
+async def bday(ctx):
+    pass
+
+
 ######
 ## Administration Commands
 ######
@@ -755,7 +757,7 @@ async def on_raw_reaction_add(reaction):
 
         else:
             await message.remove_reaction(reaction.emoji, reaction.member)
-    if reaction.message.id == coin_drop_message.id and reaction.member.id != OWNER_IDS:
+    if reaction.message_id == coin_drop_message.id and reaction.member.id != OWNER_IDS:
         embed = discord.Embed(title=str(f'Credit Drop Claimed!'), description='', colour=discord.Colour(0xFFFFFF))
         payout_text = ''
         multiplier = 0

@@ -11,6 +11,11 @@ CLIENT_ID =
 DROP_LOCATIONS = []
 CURRENCY_EMOJI = "<:gold_coin:973071732858585088>"
 
+WATER_PHRASES = ['<a:attention:1026222478613282836> This is your friendly reminder to make sure you drink water!',
+                 '<a:attention:1026222478613282836> Look, it really is for your own good, so make sure you drink your water!',
+                 '<a:attention:1026222478613282836> I\'m not going to have to tell you again! DRINK YOUR WATER!',
+                 '<a:attention:1026222478613282836> If you don\'t want to drink your water, fine! But don\'t come crawling to me when you are not hydrated!']
+
 # SOCIAL GIFS
 FUCK_GIFS = ['https://c.tenor.com/qC7OMlSm00EAAAAC/sex-love.gif',
              'https://media.tenor.com/jleVaFqBaP4AAAAd/excited-anime.gif']
