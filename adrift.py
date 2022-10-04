@@ -724,7 +724,8 @@ async def on_raw_reaction_add(reaction):
                                   timestamp=datetime.datetime.utcnow())
             
             embed.add_field(name="Author", value=message.author.mention, inline=False)
-            embed.add_field(name="Content", value=message.content or "See attachment", inline=False)
+            embed.add_field(name="Content", value=message.content or "[See attachment]", inline=False)
+            embed.add_field(name="Original", value=f"[See Original to vote]({message.jump_url})", inline=False)
             embed.add_field(name="Stars", value=stars + 1, inline=False)
 
             if len(message.attachments):
